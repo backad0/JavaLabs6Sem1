@@ -1,18 +1,25 @@
 package Task7;
 
+import java.util.concurrent.Semaphore;
+
 public class PongThread extends Thread {
+
+    Semaphore sem;
+
+    public PongThread(Semaphore sem) {
+        this.sem = sem;
+    }
 
     @Override
     public void run() {
-        try {
-            wait();
-            for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 100; i++) {
+            try {
+                sem.acquire();
                 System.out.println("pong");
-                notify();
-                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            sem.release();
         }
     }
 }
