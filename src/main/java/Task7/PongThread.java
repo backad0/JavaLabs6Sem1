@@ -1,25 +1,32 @@
 package Task7;
 
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class PongThread extends Thread {
 
-    Semaphore sem;
+    private final Object lock;
+    private AtomicBoolean flag;
 
-    public PongThread(Semaphore sem) {
-        this.sem = sem;
+    public PongThread(Object lock, AtomicBoolean flag) {
+        this.lock = lock;
+        this.flag = flag;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < 100; i++) {
-            try {
-                sem.acquire();
+        while (true){
+            synchronized (lock) {
+                while (!flag.get()){
+                    try {
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                flag.set(false);
                 System.out.println("pong");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                lock.notify();
             }
-            sem.release();
         }
     }
 }

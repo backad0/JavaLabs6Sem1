@@ -21,6 +21,6 @@ public class Task5Test {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println(list.toString());
+        System.out.println(list);
     }
 }

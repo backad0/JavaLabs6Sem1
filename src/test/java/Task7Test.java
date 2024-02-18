@@ -3,15 +3,23 @@ import Task7.PongThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Task7Test {
 
     @Test
     public void test() {
-        Semaphore sem = new Semaphore(1);
-        PingThread pingThread = new PingThread(sem);
-        PongThread pongThread = new PongThread(sem);
+        Object obj = new Object();
+        AtomicBoolean flag = new AtomicBoolean(true);
+        PingThread pingThread = new PingThread(obj, flag);
+        PongThread pongThread = new PongThread(obj, flag);
         pingThread.start();
         pongThread.start();
+        try{
+            pingThread.join();
+            pongThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

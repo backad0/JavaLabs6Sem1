@@ -4,13 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-В основном потоке создать ArrayList<Integer>. Запустить 2 потока на базе разных
-классов, один поток 10000 раз добавляет в список случайное целое число, другой
-10000 раз удаляет элемент по случайному индексу. Использоватьвнешний
-synchronized блок
-*/
-public class Task4Test {
+
+public class Task8Test {
 
     @Test
     public void test() {
