@@ -15,12 +15,16 @@ public class DelThread extends Thread {
 
     @Override
     public void run() {
+        int deletedElement;
+        locker.lock();
         for (int i = 0; i < 10000; i++) {
-            locker.lock();
-            System.out.printf("%s " + list.size() + "; ", Thread.currentThread().getName());
-            list.remove((int) (Math.random() * list.size()));
-            locker.unlock();
+
+            deletedElement = (int) (Math.random() * list.size());
+            System.out.printf("%s[%d] " + list.size() + "; ", Thread.currentThread().getName(), deletedElement);
+            list.remove(deletedElement);
+
         }
+        locker.unlock();
         System.out.println();
     }
 }

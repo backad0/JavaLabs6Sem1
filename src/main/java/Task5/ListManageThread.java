@@ -20,9 +20,11 @@ public class ListManageThread extends Thread {
     }
 
     public synchronized void delRandomNumbers() {
+        int deletedElement;
         for (int i = 0; i < 10000; i++) {
-            System.out.printf("deleting " + list.size() + "; ", Thread.currentThread().getName());
-            list.remove((int) (Math.random() * list.size()));
+            deletedElement = (int) (Math.random() * list.size());
+            System.out.printf("%s[%d] " + list.size() + "; ", Thread.currentThread().getName(), deletedElement);
+            list.remove(deletedElement);
         }
         System.out.println();
     }

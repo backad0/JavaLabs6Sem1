@@ -12,9 +12,11 @@ public class DelThread extends Thread {
 
     @Override
     public void run() {
+        int deletedElement;
         for (int i = 0; i < 10000; i++) {
-            System.out.printf("%s " + list.size() + "; ", Thread.currentThread().getName());
-            list.remove((int) (Math.random() * list.size()));
+            deletedElement = (int) (Math.random() * list.size());
+            System.out.printf("%s[%d] " + list.size() + "; ", Thread.currentThread().getName(), deletedElement);
+            list.remove(deletedElement);
         }
         System.out.println();
     }

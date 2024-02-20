@@ -15,12 +15,12 @@ public class AddThread extends Thread {
 
     @Override
     public void run() {
+        locker.lock();
         for (int i = 0; i < 10000; i++) {
-            locker.lock();
             System.out.printf("%s " + list.size() + "; ", Thread.currentThread().getName());
             list.add((int) (Math.random() * Integer.MAX_VALUE * 2 + 1) - Integer.MAX_VALUE);
-            locker.unlock();
         }
+        locker.unlock();
         System.out.println();
     }
 }
