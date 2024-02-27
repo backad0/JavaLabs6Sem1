@@ -18,6 +18,7 @@ public class PongThread extends Thread {
             synchronized (lock) {
                 while (!flag.get()){
                     try {
+                        lock.notify();
                         lock.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -25,7 +26,6 @@ public class PongThread extends Thread {
                 }
                 flag.set(false);
                 System.out.println("pong");
-                lock.notify();
             }
         }
     }

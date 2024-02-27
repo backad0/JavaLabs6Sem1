@@ -19,6 +19,7 @@ public class PingThread extends Thread {
             synchronized (lock) {
                 while (flag.get()){
                     try {
+                        lock.notify();
                         lock.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -26,7 +27,6 @@ public class PingThread extends Thread {
                 }
                 flag.set(true);
                 System.out.println("ping");
-                lock.notify();
             }
         }
     }

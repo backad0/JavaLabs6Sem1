@@ -15,8 +15,9 @@ public class Task4Test {
     @Test
     public void test() {
         List<Integer> list = new ArrayList<>();
-        AddThread addThread = new AddThread(list, "addThread");
-        DelThread delThread = new DelThread(list, "delThread");
+        Object mutex = new Object();
+        AddThread addThread = new AddThread(list, "addThread", mutex);
+        DelThread delThread = new DelThread(list, "delThread", mutex);
         addThread.start();
         delThread.start();
         try {

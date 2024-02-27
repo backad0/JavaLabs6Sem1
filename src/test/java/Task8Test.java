@@ -1,17 +1,21 @@
-import Task4.AddThread;
-import Task4.DelThread;
+import Task8.AddThread;
+import Task8.DelThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Task8Test {
 
     @Test
     public void test() {
+        ReentrantLock lock = new ReentrantLock();
         List<Integer> list = new ArrayList<>();
-        AddThread addThread = new AddThread(list, "addThread");
-        DelThread delThread = new DelThread(list, "delThread");
+        Condition condition = lock.newCondition();
+        AddThread addThread = new AddThread(list,"addThread", lock, condition);
+        DelThread delThread = new DelThread(list, "delThread", lock, condition);
         addThread.start();
         delThread.start();
         try {

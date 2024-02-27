@@ -1,5 +1,5 @@
-import Task4.AddThread;
-import Task4.DelThread;
+import Task6.AddThread;
+import Task6.DelThread;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

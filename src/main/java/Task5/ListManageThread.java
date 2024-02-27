@@ -1,31 +1,29 @@
 package Task5;
 
-import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ListManageThread extends Thread {
 
-    private final List<Integer> list;
+    private final ListManager list;
+    private final AtomicBoolean isAdd;
 
-    public ListManageThread(List<Integer> list, String name) {
+    public ListManageThread(ListManager list, String name, AtomicBoolean idAdd) {
         super(name);
         this.list = list;
+        this.isAdd = idAdd;
     }
 
-    public synchronized void addRandomNumbers() {
-        for (int i = 0; i < 10000; i++) {
-            System.out.printf("adding " + list.size() + "; ");
-            list.add((int) (Math.random() * Integer.MAX_VALUE*2+1) - Integer.MAX_VALUE);
-        }
-        System.out.println();
-    }
 
-    public synchronized void delRandomNumbers() {
-        int deletedElement;
-        for (int i = 0; i < 10000; i++) {
-            deletedElement = (int) (Math.random() * list.size());
-            System.out.printf("%s[%d] " + list.size() + "; ", Thread.currentThread().getName(), deletedElement);
-            list.remove(deletedElement);
+    @Override
+    public void run() {
+        if (isAdd.get()) {
+            for (int i = 0; i < 10000; i++) {
+                list.addRandomNumber();
+            }
+        } else {
+            for (int i = 0; i < 10000; i++) {
+                list.delRandomNumber();
+            }
         }
-        System.out.println();
     }
 }
