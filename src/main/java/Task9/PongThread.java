@@ -19,7 +19,6 @@ public class PongThread extends Thread {
     @Override
     public void run() {
         while (true){
-//            synchronized (condition) {
                 lock.lock();
                 while (!flag.get()){
                     try {
@@ -32,7 +31,6 @@ public class PongThread extends Thread {
                 System.out.println("pong");
                 condition.signal();
                 lock.unlock();
-//            }
         }
     }
 }
